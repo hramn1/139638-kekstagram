@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Станислав Михайлов](https://up.htmlacademy.ru/javascript/13/user/139638).
-* Наставник: `Неизвестно`.
+* Наставник: `Юлька Долгун`.
 
 ---
 
