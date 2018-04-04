@@ -1,12 +1,19 @@
 'use strict';
+var template = document.querySelector('#picture').content;
+var pictures = document.querySelector('.pictures');
+var bigPicture = document.querySelector('.big-picture');
 
+function showPicture () {
+  bigPicture.classList.remove('hidden');
+}
+showPicture();
 var generateRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
 var arr = [];
 
-var likes = generateRandomNumber(15, 200);
+
 var comment = ['Всё отлично!', 'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
@@ -22,7 +29,7 @@ var generateArray = function () {
     arr.push(
       {
         url: link,
-        likes: likes,
+        likes: generateRandomNumber(15, 200),
         comments: comment[generateRandomNumber(0, 5)] + ' ' + comment[generateRandomNumber(0, 5)],
         description: description[generateRandomNumber(0, 5)]
       }
@@ -30,4 +37,19 @@ var generateArray = function () {
   }
 };
 generateArray();
+var showImg = function(){
+  for (var i = 0; i < arr.length; i++) {
+    var templatePhoto = template.cloneNode(true);
+    templatePhoto.querySelector('.picture__img').setAttribute('src', arr[i].url);
+    templatePhoto.querySelector('.picture__stat--likes').textContent = arr[i].likes;
+    templatePhoto.querySelector('.picture__stat--comments').textContent = arr[i].comments;
+    var fragmentImg = document.createDocumentFragment();
+    fragmentImg.appendChild(templatePhoto);
+    pictures.appendChild(fragmentImg);
+
+  }
+}
+showImg();
 console.log(arr);
+
+
