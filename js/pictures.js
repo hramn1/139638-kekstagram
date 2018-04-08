@@ -13,27 +13,27 @@ var description = ['Тестим новую камеру!', 'Затусили с
   'Вот это тачка!'];
 var arr = [];
 
-function generateRandomNumber (min, max) {
+function generateRandomNumber(min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 }
 
-function generateArray () {
+function generateArray() {
   for (var i = 1; i <= 25; i++) {
     var link = 'photos/' + i + '.jpg';
     arr.push(
-      {
-        url: link,
-        likes: generateRandomNumber(15, 200),
-        comments: comment[generateRandomNumber(0, 5)] + ' ' + comment[generateRandomNumber(0, 5)],
-        description: description[generateRandomNumber(0, 5)]
-      }
-    )
+        {
+          url: link,
+          likes: generateRandomNumber(15, 200),
+          comments: comment[generateRandomNumber(0, 5)] + ' ' + comment[generateRandomNumber(0, 5)],
+          description: description[generateRandomNumber(0, 5)]
+        }
+    );
   }
 }
 
 generateArray();
 
-function showImg (){
+function showImg() {
   for (var i = 0; i < arr.length; i++) {
     var templatePhoto = template.cloneNode(true);
     templatePhoto.querySelector('.picture__img').src = arr[i].url;
@@ -48,11 +48,11 @@ function showImg (){
 
 showImg();
 
-function showBigPicture (arr) {
+function showBigPicture(ar) {
   bigPicture.classList.remove('hidden');
-  bigPicture.querySelector('.big-picture__img img').src = arr[0].url;
-  bigPicture.querySelector('.likes-count').textContent = arr[0].likes;
-  bigPicture.querySelector('.comments-count').textContent = arr[0].comments.length;
+  bigPicture.querySelector('.big-picture__img img').src = ar[0].url;
+  bigPicture.querySelector('.likes-count').textContent = ar[0].likes;
+  bigPicture.querySelector('.comments-count').textContent = ar[0].comments.length;
   bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
   bigPicture.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
 }
