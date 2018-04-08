@@ -49,12 +49,17 @@ function showImg() {
 showImg();
 
 function showBigPicture(ar) {
+  var imgBig = bigPicture.querySelector('.social__picture');
   bigPicture.classList.remove('hidden');
+  imgBig.src = 'img/avatar-' + generateRandomNumber(1, 6) + '.svg';
   bigPicture.querySelector('.big-picture__img img').src = ar[0].url;
   bigPicture.querySelector('.likes-count').textContent = ar[0].likes;
   bigPicture.querySelector('.comments-count').textContent = ar[0].comments.length;
   bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
   bigPicture.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
+  bigPicture.querySelector('.social__comments').innerHTML = '<li class="social__comment social__comment--text">' +
+    imgBig.outerHTML + arr[0].comments + '</li>' + '<li class="social__comment social__comment--text">' +
+    imgBig.outerHTML + arr[1].comments + '</li>';
 }
 
 showBigPicture(arr);
