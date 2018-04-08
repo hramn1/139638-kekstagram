@@ -2,18 +2,6 @@
 var template = document.querySelector('#picture').content;
 var pictures = document.querySelector('.pictures');
 var bigPicture = document.querySelector('.big-picture');
-
-function showPicture () {
-  bigPicture.classList.remove('hidden');
-}
-showPicture();
-var generateRandomNumber = function (min, max) {
-  return Math.floor(min + Math.random() * (max + 1 - min));
-};
-
-var arr = [];
-
-
 var comment = ['Всё отлично!', 'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
@@ -21,9 +9,15 @@ var comment = ['Всё отлично!', 'В целом всё неплохо. �
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 var description = ['Тестим новую камеру!', 'Затусили с друзьями на море', 'Как же круто тут кормят',
-'Отдыхаем...', 'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
-'Вот это тачка!'];
-var generateArray = function () {
+  'Отдыхаем...', 'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
+  'Вот это тачка!'];
+var arr = [];
+
+function generateRandomNumber (min, max) {
+  return Math.floor(min + Math.random() * (max + 1 - min));
+}
+
+function generateArray () {
   for (var i = 1; i <= 25; i++) {
     var link = 'photos/' + i + '.jpg';
     arr.push(
@@ -35,21 +29,34 @@ var generateArray = function () {
       }
     )
   }
-};
+}
+
 generateArray();
-var showImg = function(){
+
+function showImg (){
   for (var i = 0; i < arr.length; i++) {
     var templatePhoto = template.cloneNode(true);
-    templatePhoto.querySelector('.picture__img').setAttribute('src', arr[i].url);
+    templatePhoto.querySelector('.picture__img').src = arr[i].url;
     templatePhoto.querySelector('.picture__stat--likes').textContent = arr[i].likes;
-    templatePhoto.querySelector('.picture__stat--comments').textContent = arr[i].comments;
+    templatePhoto.querySelector('.picture__stat--comments').textContent = arr[i].comments.length;
     var fragmentImg = document.createDocumentFragment();
     fragmentImg.appendChild(templatePhoto);
     pictures.appendChild(fragmentImg);
 
   }
 }
+
 showImg();
-console.log(arr);
+
+function showBigPicture (arr) {
+  bigPicture.classList.remove('hidden');
+  bigPicture.querySelector('.big-picture__img img').src = arr[0].url;
+  bigPicture.querySelector('.likes-count').textContent = arr[0].likes;
+  bigPicture.querySelector('.comments-count').textContent = arr[0].comments.length;
+  bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
+  bigPicture.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
+}
+
+showBigPicture(arr);
 
 
