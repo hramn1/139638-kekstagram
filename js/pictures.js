@@ -11,16 +11,22 @@ var comment = ['Всё отлично!', 'В целом всё неплохо. �
 var description = ['Тестим новую камеру!', 'Затусили с друзьями на море', 'Как же круто тут кормят',
   'Отдыхаем...', 'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'];
-var arr = [];
+
+var photos = generatePhoto();
+
+generatePhoto();
+showImg(photos);
+showBigPicture(photos);
 
 function generateRandomNumber(min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 }
 
-function generateArray() {
+function generatePhoto() {
+  var photos = [];
   for (var i = 1; i <= 25; i++) {
     var link = 'photos/' + i + '.jpg';
-    arr.push(
+    photos.push(
         {
           url: link,
           likes: generateRandomNumber(15, 200),
@@ -29,24 +35,21 @@ function generateArray() {
         }
     );
   }
+  return photos;
 }
-
-generateArray();
 
 function showImg() {
-  for (var i = 0; i < arr.length; i++) {
+  var fragmentImg = document.createDocumentFragment();
+
+  photos.forEach(function(item, i, ) {
     var templatePhoto = template.cloneNode(true);
-    templatePhoto.querySelector('.picture__img').src = arr[i].url;
-    templatePhoto.querySelector('.picture__stat--likes').textContent = arr[i].likes;
-    templatePhoto.querySelector('.picture__stat--comments').textContent = arr[i].comments.length;
-    var fragmentImg = document.createDocumentFragment();
+    templatePhoto.querySelector('.picture__img').src = photos[i].url;
+    templatePhoto.querySelector('.picture__stat--likes').textContent = photos[i].likes;
+    templatePhoto.querySelector('.picture__stat--comments').textContent = photos[i].comments.length;
     fragmentImg.appendChild(templatePhoto);
-    pictures.appendChild(fragmentImg);
-
-  }
+  });
+  pictures.appendChild(fragmentImg);
 }
-
-showImg();
 
 function showBigPicture(ar) {
   var imgBig = bigPicture.querySelector('.social__picture');
@@ -58,10 +61,7 @@ function showBigPicture(ar) {
   bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
   bigPicture.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
   bigPicture.querySelector('.social__comments').innerHTML = '<li class="social__comment social__comment--text">' +
-    imgBig.outerHTML + arr[0].comments + '</li>' + '<li class="social__comment social__comment--text">' +
-    imgBig.outerHTML + arr[1].comments + '</li>';
+    imgBig.outerHTML + photos[0].comments + '</li>' + '<li class="social__comment social__comment--text">' +
+    imgBig.outerHTML + photos[1].comments + '</li>';
 }
-
-showBigPicture(arr);
-
 
