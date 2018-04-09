@@ -23,7 +23,7 @@ function generateRandomNumber(min, max) {
 }
 
 function generatePhoto() {
-  var photos = [];
+  photos = [];
   for (var i = 1; i <= 25; i++) {
     var link = 'photos/' + i + '.jpg';
     photos.push(
@@ -41,7 +41,7 @@ function generatePhoto() {
 function showImg() {
   var fragmentImg = document.createDocumentFragment();
 
-  photos.forEach(function(item, i, ) {
+  photos.forEach(function (item, i) {
     var templatePhoto = template.cloneNode(true);
     templatePhoto.querySelector('.picture__img').src = photos[i].url;
     templatePhoto.querySelector('.picture__stat--likes').textContent = photos[i].likes;
@@ -64,4 +64,3 @@ function showBigPicture(ar) {
     imgBig.outerHTML + photos[0].comments + '</li>' + '<li class="social__comment social__comment--text">' +
     imgBig.outerHTML + photos[1].comments + '</li>';
 }
-
