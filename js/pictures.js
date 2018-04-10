@@ -14,9 +14,8 @@ var description = ['Тестим новую камеру!', 'Затусили с
 
 var photos = generatePhoto();
 
-generatePhoto();
 showImg(photos);
-showBigPicture(photos);
+showBigPicture(photos[0]);
 
 function generateRandomNumber(min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
@@ -51,13 +50,13 @@ function showImg() {
   pictures.appendChild(fragmentImg);
 }
 
-function showBigPicture(ar) {
+function showBigPicture(firstPhoto) {
   var imgBig = bigPicture.querySelector('.social__picture');
   bigPicture.classList.remove('hidden');
   imgBig.src = 'img/avatar-' + generateRandomNumber(1, 6) + '.svg';
-  bigPicture.querySelector('.big-picture__img img').src = ar[0].url;
-  bigPicture.querySelector('.likes-count').textContent = ar[0].likes;
-  bigPicture.querySelector('.comments-count').textContent = ar[0].comments.length;
+  bigPicture.querySelector('.big-picture__img img').src = firstPhoto.url;
+  bigPicture.querySelector('.likes-count').textContent = firstPhoto.likes;
+  bigPicture.querySelector('.comments-count').textContent = firstPhoto.comments.length;
   bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
   bigPicture.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
   bigPicture.querySelector('.social__comments').innerHTML = '<li class="social__comment social__comment--text">' +
