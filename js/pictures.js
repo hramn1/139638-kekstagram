@@ -62,7 +62,7 @@ function showBigPicture(firstPhoto) {
     imgBig.outerHTML + photos[0].comments + '</li>' + '<li class="social__comment social__comment--text">' +
     imgBig.outerHTML + photos[1].comments + '</li>';
 }
-// module-task4
+// module4-task1
 
 var imgLinks = document.querySelectorAll('.picture__link');
 var imgUpload = document.querySelector('.img-upload__input');
@@ -114,3 +114,38 @@ function changeEffect() {
     });
   });
 }
+// module4-task2
+var submitBtn = document.querySelector('#upload-submit');
+var hashtag = document.querySelector('.text__hashtags');
+var fieldText = document.querySelector('.img-upload__text');
+hashtag.addEventListener('focus', function () {
+  document.removeEventListener('keydown', escCloseImg);
+});
+hashtag.addEventListener('blur', function () {
+  document.addEventListener('keydown', escCloseImg);
+});
+hashtag.addEventListener('change', function validaty () {
+  var hashtagValue = hashtag.value;
+  var hashtagArray = hashtagValue.split(' ');
+  setInterval(function() {
+  if (hashtagArray.length > 4){
+    hashtag.setCustomValidity('Должно быть не больше 5');
+    hashtag.style.border = '1px solid red';
+  }
+    hashtagArray.forEach(function (item, i) {
+      if (hashtagArray[i].length > 20) {
+        hashtag.setCustomValidity('Хэш-тег не должен быть больше 20 символов');
+        hashtag.style.border = '1px solid red';
+      }
+      else if (hashtagArray[i].charAt(0) !== '#') {
+        hashtag.setCustomValidity('Хэш-тег должен начинаться с #');
+        hashtag.style.border = '1px solid red';
+      }
+      else {
+        hashtag.setCustomValidity('');
+        hashtag.style.border = '0';
+      }
+    })
+  }, 200);
+  });
+
