@@ -115,9 +115,17 @@ function changeEffect() {
   });
 }
 // module4-task2
-var submitBtn = document.querySelector('#upload-submit');
 var hashtag = document.querySelector('.text__hashtags');
 var commentText = document.querySelector('.text__description');
+var formImg = document.querySelector('.img-upload__form');
+var MAX_HASHTAGS_LENGTH = 20;
+var MIN_HASHTAGS_LENGTH = 2;
+
+function activeForm() {
+  formImg.action = 'https://js.dump.academy/kekstagram';
+  commentText.maxLength = '140';
+}
+activeForm();
 hashtag.addEventListener('focus', function () {
   document.removeEventListener('keydown', escCloseImg);
 });
@@ -131,36 +139,38 @@ commentText.addEventListener('blur', function () {
   document.addEventListener('keydown', escCloseImg);
 });
 
-commentText.addEventListener('change', function () {
-  if (commentText.value.length > 140) {
-    commentText.setCustomValidity('Коментарий не больше 140 символов');
-    commentText.style.border = '1px solid red';
-    disableSubmitForm();
-  }
+commentText.addEventListener('invalid', function () {
+  commentText.setCustomValidity('Не больше 140 символов');
 });
 
 hashtag.addEventListener('change', function () {
   var hashtagValue = hashtag.value;
   var hashtagArray = hashtagValue.split(' ');
-  if (hashtagArray.length > 4) {
+  if (hashtagArray.length > 5) {
     hashtag.setCustomValidity('Должно быть не больше 5');
     hashtag.style.border = '1px solid red';
+  } else if (hashtagValue === '') {
+    hashtag.setCustomValidity('');
+    hashtag.style = '';
+  } else {
+    hashtagArray.some(function (item, i) {
+      hashtagArray[i] = hashtagArray[i].toLowerCase();
+      if (hashtagArray[i].length > MAX_HASHTAGS_LENGTH || hashtagArray[i].length < MIN_HASHTAGS_LENGTH) {
+        hashtag.setCustomValidity('Хэш-тег не должен быть больше 20 символов');
+        hashtag.style.border = '1px solid red';
+      } else if (hashtagArray[i].charAt(0) !== '#') {
+        hashtag.setCustomValidity('Хэш-тег должен начинаться с #');
+        hashtag.style.border = '1px solid red';
+      } else if (hashtagArray[i].indexOf('#', 1) + 1) {
+        hashtag.setCustomValidity('Хэш-тег должен иметь только одну #');
+        hashtag.style.border = '1px solid red';
+      } else if (hashtagArray[i] === hashtagArray[i - 1] || hashtagArray[i] === hashtagArray[i - 2] || hashtagArray[i] === hashtagArray[i - 3] || hashtagArray[i] === hashtagArray[i - 4]) {
+        hashtag.setCustomValidity('Хэш-тег не должен повторятся');
+        hashtag.style.border = '1px solid red';
+      } else {
+        hashtag.setCustomValidity('');
+        hashtag.style = '';
+      }
+    });
   }
-  hashtagArray.forEach(function (item, i) {
-    if (hashtagArray[i].length > 20) {
-      hashtag.setCustomValidity('Хэш-тег не должен быть больше 20 символов');
-      hashtag.style.border = '1px solid red';
-    } else if (hashtagArray[i].charAt(0) !== '#') {
-      hashtag.setCustomValidity('Хэш-тег должен начинаться с #');
-      hashtag.style.border = '1px solid red';
-    } else {
-      hashtag.setCustomValidity('');
-      hashtag.style.border = '0';
-    }
-  });
 });
-function disableSubmitForm() {
-  submitBtn.addEventListener('click', function (evt) {
-    evt.preventDefault();
-  });
-}
