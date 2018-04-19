@@ -177,3 +177,25 @@ hashtag.addEventListener('change', function () {
     }
   }
 });
+// module5-task1
+var btnScale = document.querySelector('.scale__pin');
+var scale = document.querySelector('.scale');
+btnScale.addEventListener('mousedown', onMouseDown);
+function onMouseDown(evt) {
+  evt.preventDefault();
+
+  var startCoordsX = evt.clientX;
+  function onMouseMove(moveEvt) {
+    var shift = startCoordsX - moveEvt.clientX;
+    console.log(startCoordsX)
+    startCoordsX = moveEvt.clientX;
+    var cordsX = btnScale.offsetLeft - shift;
+      btnScale.style.left = cordsX + 'px';
+    }
+  function onMouseUp () {
+    scale.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+  scale.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+}
