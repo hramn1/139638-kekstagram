@@ -180,17 +180,36 @@ hashtag.addEventListener('change', function () {
 // module5-task1
 var btnScale = document.querySelector('.scale__pin');
 var scale = document.querySelector('.scale');
+var scaleLevel = document.querySelector('.scale__level');
+var RADIUS_PIN = 9;
+var WIDTH_SCALE = 453
 btnScale.addEventListener('mousedown', onMouseDown);
 function onMouseDown(evt) {
   evt.preventDefault();
 
   var startCoordsX = evt.clientX;
   function onMouseMove(moveEvt) {
+  	var c = document.querySelector('.img-upload__preview')
     var shift = startCoordsX - moveEvt.clientX;
-    console.log(startCoordsX)
+    
     startCoordsX = moveEvt.clientX;
     var cordsX = btnScale.offsetLeft - shift;
+    console.log(cordsX)
+          if(cordsX - RADIUS_PIN < 0){
+      cordsX = 0 ;
+      }
+      else if( cordsX + RADIUS_PIN > WIDTH_SCALE)
+      {
+      	cordsX = WIDTH_SCALE - RADIUS_PIN;
+      }
       btnScale.style.left = cordsX + 'px';
+      var b = cordsX / (WIDTH_SCALE-RADIUS_PIN) * 100;
+      scaleLevel.style.width = b + '%'
+      if(c.classList.contains('effects__preview--sepia'))
+      {
+      	c.style.filter = 'sepia('+b/100 +')'   ;
+      }
+
     }
   function onMouseUp () {
     scale.removeEventListener('mousemove', onMouseMove);
