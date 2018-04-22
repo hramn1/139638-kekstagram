@@ -135,25 +135,25 @@ var scaleValue = document.querySelector('.scale__value');
 var scaleLevel = document.querySelector('.scale__level');
 var btnScale = document.querySelector('.scale__pin');
 var fieldScale = document.querySelector('.img-upload__scale');
+var closeImg = bigPicture.querySelector('.big-picture__cancel');
 var currentEffect = '';
 var ESC_KEYCODE = 27;
 var RADIUS_PIN = 9;
 var WIDTH_SCALE = 453;
 
-imgLinks.forEach(function (item, i) {
-  imgLinks[i].addEventListener('click', function () {
+document.addEventListener('keydown', escCloseBigImg);
+function escCloseBigImg(evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    bigPicture.classList.add('hidden');
+  }
+}
+imgLinks.forEach(function (item) {
+  item.addEventListener('click', function () {
     bigPicture.classList.remove('hidden');
   });
-  var closeImg = bigPicture.querySelector('.big-picture__cancel');
   closeImg.addEventListener('click', function () {
     bigPicture.classList.add('hidden');
   });
-  document.addEventListener('keydown', EscCloseBigImg);
-  function EscCloseBigImg(evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      bigPicture.classList.add('hidden');
-    }
-  }
 });
 closeOverlayImg.addEventListener('click', function () {
   imgOverlay.classList.add('hidden');
@@ -171,13 +171,13 @@ imgUpload.addEventListener('change', function () {
 });
 function changeEffect() {
   var imgPreview = imgOverlay.querySelector('.img-upload__preview');
-  imgEffect.forEach(function (item, i) {
-    imgEffect[i].addEventListener('click', function () {
+  imgEffect.forEach(function (item) {
+    item.addEventListener('click', function () {
       imgPreview.style = '';
       scaleValue.value = '100';
       scaleLevel.style.width = '100%';
       btnScale.style.left = WIDTH_SCALE - RADIUS_PIN + 'px';
-      var inputValue = imgEffect[i].value;
+      var inputValue = item.value;
       if (currentEffect !== '') {
         imgPreview.classList.remove(currentEffect);
       }
@@ -192,12 +192,13 @@ function changeEffect() {
   });
 }
 var scale = document.querySelector('.scale');
+var imgPreview = document.querySelector('.img-upload__preview');
+
 btnScale.addEventListener('mousedown', onMouseDown);
 function onMouseDown(evt) {
   evt.preventDefault();
   var startCoordsX = evt.clientX;
   function onMouseMove(moveEvt) {
-    var imgPreview = document.querySelector('.img-upload__preview');
     var shift = startCoordsX - moveEvt.clientX;
 
     startCoordsX = moveEvt.clientX;
