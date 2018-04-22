@@ -148,6 +148,7 @@ function escCloseBigImg(evt) {
 }
 closeImg.addEventListener('click', function () {
   bigPicture.classList.add('hidden');
+  document.addEventListener('keydown', escCloseBigImg);
 });
 imgLinks.forEach(function (item) {
   item.addEventListener('click', function () {
