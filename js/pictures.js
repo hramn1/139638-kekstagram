@@ -39,7 +39,6 @@ function generatePhoto() {
 
 function showImg() {
   var fragmentImg = document.createDocumentFragment();
-
   photos.forEach(function (item, i) {
     var templatePhoto = template.cloneNode(true);
     templatePhoto.querySelector('.picture__img').src = photos[i].url;
@@ -49,8 +48,8 @@ function showImg() {
   });
   pictures.appendChild(fragmentImg);
 }
-
 function showBigPicture(firstPhoto) {
+  document.addEventListener('keydown', escCloseBigImg);
   var imgBig = bigPicture.querySelector('.social__picture');
   imgBig.src = 'img/avatar-' + generateRandomNumber(1, 6) + '.svg';
   bigPicture.querySelector('.big-picture__img img').src = firstPhoto.url;
@@ -141,18 +140,18 @@ var ESC_KEYCODE = 27;
 var RADIUS_PIN = 9;
 var WIDTH_SCALE = 453;
 
-document.addEventListener('keydown', escCloseBigImg);
+
 function escCloseBigImg(evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     bigPicture.classList.add('hidden');
   }
 }
+closeImg.addEventListener('click', function () {
+  bigPicture.classList.add('hidden');
+});
 imgLinks.forEach(function (item) {
   item.addEventListener('click', function () {
     bigPicture.classList.remove('hidden');
-  });
-  closeImg.addEventListener('click', function () {
-    bigPicture.classList.add('hidden');
   });
 });
 closeOverlayImg.addEventListener('click', function () {
