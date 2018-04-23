@@ -143,18 +143,23 @@ var WIDTH_SCALE = 453;
 
 function escCloseBigImg(evt) {
   if (evt.keyCode === ESC_KEYCODE) {
-    bigPicture.classList.add('hidden');
+    closePopup();
   }
 }
 closeImg.addEventListener('click', function () {
+  closePopup();
+});
+function closePopup() {
   bigPicture.classList.add('hidden');
-  document.addEventListener('keydown', escCloseBigImg);
-});
+  document.removeEventListener('keydown', escCloseBigImg);
+}
 imgLinks.forEach(function (item) {
-  item.addEventListener('click', function () {
-    bigPicture.classList.remove('hidden');
-  });
+  item.addEventListener('click', onPopupClose);
 });
+function onPopupClose() {
+  document.addEventListener('keydown', escCloseBigImg);
+  bigPicture.classList.remove('hidden');
+}
 closeOverlayImg.addEventListener('click', function () {
   imgOverlay.classList.add('hidden');
 });
