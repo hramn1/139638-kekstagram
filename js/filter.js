@@ -1,5 +1,7 @@
 'use strict';
 (function () {
+  var RADIUS_PIN = 9;
+  var WIDTH_SCALE = 453;
   var imgLinks = document.querySelectorAll('.picture__link');
   var imgUpload = document.querySelector('.img-upload__input');
   var imgOverlay = document.querySelector('.img-upload__overlay');
@@ -11,8 +13,6 @@
   var fieldScale = document.querySelector('.img-upload__scale');
   var closeImg = window.pictures.bigPicture.querySelector('.big-picture__cancel');
   var currentEffect = '';
-  var RADIUS_PIN = 9;
-  var WIDTH_SCALE = 453;
 
   closeImg.addEventListener('click', function () {
     closePopup();

@@ -1,10 +1,10 @@
 'use strict';
 (function () {
-  var hashtag = document.querySelector('.text__hashtags');
-  var commentText = document.querySelector('.text__description');
   var MAX_HASHTAGS_LENGTH = 20;
   var MIN_HASHTAGS_LENGTH = 2;
   var MAX_ELEVENT = 5;
+  var hashtag = document.querySelector('.text__hashtags');
+  var commentText = document.querySelector('.text__description');
 
   hashtag.addEventListener('focus', function () {
     document.removeEventListener('keydown', window.utils.escCloseImg);
