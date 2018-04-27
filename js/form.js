@@ -5,6 +5,7 @@
   var MAX_ELEVENT = 5;
   var hashtag = document.querySelector('.text__hashtags');
   var commentText = document.querySelector('.text__description');
+  var formImg = document.querySelector('.img-upload__form');
 
   hashtag.addEventListener('focus', function () {
     document.removeEventListener('keydown', window.utils.escCloseImg);
@@ -62,4 +63,9 @@
       }
     }
   });
+  var formSubmit = function (evt) {
+    evt.preventDefault();
+    backend.save();
+  };
+  formImg.addEventListener('submit', formSubmit);
 })();
