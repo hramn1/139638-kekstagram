@@ -61,10 +61,10 @@
     document.addEventListener('keydown', window.utils.escCloseBigImg);
     window.pictures.bigPicture.classList.remove('hidden');
   }
-  closeOverlayImg.addEventListener('click', function () {
+  closeOverlayImg.addEventListener('click', closingImgOverlay);
+  function closingImgOverlay() {
     imgOverlay.classList.add('hidden');
-  });
-
+  }
   imgUpload.addEventListener('change', function () {
     imgOverlay.classList.remove('hidden');
     document.addEventListener('keydown', window.utils.escCloseImg);
@@ -134,6 +134,7 @@
   }
   window.filter = {
     closePopup: closePopup,
-    imgOverlay: imgOverlay
+    imgOverlay: imgOverlay,
+    closingImgOverlay: closingImgOverlay
   };
 })();

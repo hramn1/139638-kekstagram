@@ -7,11 +7,10 @@
     ok: 200,
     request: 400,
     user: 401,
-    notFound: 404,
-    server: 500,
+    notFound: 404
   };
 
-  var load = function (onLoad, onError) {
+  function load(onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.timeout = SERVER_TIMEOUT;
@@ -31,9 +30,6 @@
         case Status.notFound:
           error = 'Ничего не найдено';
           break;
-        case Status.server:
-          error = 'Сервер опять ошибся';
-          break;
         default:
           error = 'Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText;
       }
@@ -52,8 +48,8 @@
     xhr.open('GET', SERVER_URL + '/data');
     xhr.send();
 
-  };
-  var save = function (data, onLoad, onError) {
+  }
+  function save(data, onLoad, onError) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
@@ -68,7 +64,7 @@
 
     xhr.open('POST', SERVER_URL);
     xhr.send(data);
-  };
+  }
   window.backend = {
     save: save,
     load: load
