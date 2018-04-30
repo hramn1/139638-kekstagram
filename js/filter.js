@@ -2,7 +2,6 @@
 (function () {
   var RADIUS_PIN = 9;
   var WIDTH_SCALE = 453;
-  var imgLinks = document.querySelectorAll('.picture__link');
   var imgUpload = document.querySelector('.img-upload__input');
   var imgOverlay = document.querySelector('.img-upload__overlay');
   var imgEffect = document.querySelectorAll('.effects .effects__radio');
@@ -55,13 +54,6 @@
   function closePopup() {
     window.pictures.bigPicture.classList.add('hidden');
     document.removeEventListener('keydown', window.utils.escCloseBigImg);
-  }
-  imgLinks.forEach(function (item) {
-    item.addEventListener('click', onPopupClose);
-  });
-  function onPopupClose() {
-    document.addEventListener('keydown', window.utils.escCloseBigImg);
-    window.pictures.bigPicture.classList.remove('hidden');
   }
   closeOverlayImg.addEventListener('click', closingImgOverlay);
   function closingImgOverlay() {
