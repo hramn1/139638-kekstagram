@@ -12,11 +12,17 @@
   var description = ['Тестим новую камеру!', 'Затусили с друзьями на море', 'Как же круто тут кормят',
     'Отдыхаем...', 'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
     'Вот это тачка!'];
+  var ads = [];
 
+  function dataLoad(data) {
+    ads = data;
+    return ads;
+  }
   var photos = generatePhoto();
 
   showImg(photos);
   showBigPicture(photos[0]);
+  window.backend.load(dataLoad, window.form.onErrorRequest);
 
   function generateRandomNumber(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min));
