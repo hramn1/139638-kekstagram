@@ -17,6 +17,7 @@
   var controlValue = document.querySelector('.resize__control--value');
   var imgPreview = imgOverlay.querySelector('.img-upload__preview');
   var scale = document.querySelector('.scale');
+  var resizeFieldset = document.querySelector('.img-upload__resize');
   var currentEffect = '';
   resizeImg();
   function resizeImg() {
@@ -30,7 +31,7 @@
         numControl += 25;
         controlValue.value = numControl + '%';
         imgPreview.style.transform = 'scale(' + numControl / 100 + ')';
-        imgPreview.style.zIndex = -1;
+        resizeFieldset.style.zIndex = 1;
       }
     });
     btnMinusImg.addEventListener('click', function () {
