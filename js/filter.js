@@ -32,14 +32,8 @@
       } else {
         btnPlusImg.removeAttribute('disabled');
         numControl += 25;
-<<<<<<< HEAD
-        controlValue.value = numControl + '%';
-        imgPreview.style.transform = 'scale(' + numControl / 100 + ')';
-        resizeFieldset.style.zIndex = 1;
-=======
         resizeFieldset.style.zIndex = 1;
         imgControl();
->>>>>>> 82562a9a1c1f45777d011bd21bee5f4ff3e70db7
       }
     });
     btnMinusImg.addEventListener('click', function () {
