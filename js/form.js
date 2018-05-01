@@ -73,7 +73,7 @@
     window.filter.closingImgOverlay();
     function onSuccessEscPress(evt) {
       if (evt.keyCode === ESC_KEYCODE) {
-        var successMessageEsc = node.textContent;
+        var successMessageEsc = node;
         successMessageEsc.remove();
         document.removeEventListener('keydown', onSuccessEscPress);
       }
@@ -87,7 +87,7 @@
     document.body.insertAdjacentElement('afterbegin', message);
     function onErrorEscPress(evt) {
       if (evt.keyCode === ESC_KEYCODE) {
-        var errorMessageEsc = message.textContent;
+        var errorMessageEsc = message;
         errorMessageEsc.remove();
         document.removeEventListener('keydown', onErrorEscPress);
       }

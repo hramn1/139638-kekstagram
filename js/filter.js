@@ -20,8 +20,9 @@
   var currentEffect = '';
   resizeImg();
   function resizeImg() {
-    function imgStyle() {
+    function imgControl() {
       imgPreview.style.transform = 'scale(' + numControl / 100 + ')';
+      controlValue.value = numControl + '%';
     }
     var numControl = parseFloat(controlValue.value);
     btnPlusImg.addEventListener('click', function () {
@@ -31,9 +32,8 @@
       } else {
         btnPlusImg.removeAttribute('disabled');
         numControl += 25;
-        controlValue.value = numControl + '%';
         resizeFieldset.style.zIndex = 1;
-        imgStyle();
+        imgControl();
       }
     });
     btnMinusImg.addEventListener('click', function () {
@@ -43,8 +43,7 @@
       } else {
         btnMinusImg.removeAttribute('disabled');
         numControl -= 25;
-        controlValue.value = numControl + '%';
-        imgStyle();
+        imgControl();
       }
     });
   }
