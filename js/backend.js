@@ -51,9 +51,8 @@
   }
   function save(data, onLoad, onError) {
     var xhr = new XMLHttpRequest();
-
     xhr.responseType = 'json';
-
+    xhr.timeout = SERVER_TIMEOUT;
     xhr.addEventListener('load', function () {
       if (xhr.status === Status.ok) {
         onLoad('Данные успешно отправлены');

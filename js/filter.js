@@ -2,7 +2,6 @@
 (function () {
   var RADIUS_PIN = 9;
   var WIDTH_SCALE = 453;
-  var imgLinks = document.querySelectorAll('.picture__link');
   var imgUpload = document.querySelector('.img-upload__input');
   var imgOverlay = document.querySelector('.img-upload__overlay');
   var imgEffect = document.querySelectorAll('.effects .effects__radio');
@@ -21,6 +20,10 @@
   var currentEffect = '';
   resizeImg();
   function resizeImg() {
+    function imgControl() {
+      imgPreview.style.transform = 'scale(' + numControl / 100 + ')';
+      controlValue.value = numControl + '%';
+    }
     var numControl = parseFloat(controlValue.value);
     btnPlusImg.addEventListener('click', function () {
       btnMinusImg.removeAttribute('disabled');
@@ -29,9 +32,14 @@
       } else {
         btnPlusImg.removeAttribute('disabled');
         numControl += 25;
+<<<<<<< HEAD
         controlValue.value = numControl + '%';
         imgPreview.style.transform = 'scale(' + numControl / 100 + ')';
         resizeFieldset.style.zIndex = 1;
+=======
+        resizeFieldset.style.zIndex = 1;
+        imgControl();
+>>>>>>> 82562a9a1c1f45777d011bd21bee5f4ff3e70db7
       }
     });
     btnMinusImg.addEventListener('click', function () {
@@ -41,26 +49,16 @@
       } else {
         btnMinusImg.removeAttribute('disabled');
         numControl -= 25;
-        controlValue.value = numControl + '%';
-        imgPreview.style.transform = 'scale(' + numControl / 100 + ')';
+        imgControl();
       }
     });
   }
-
-
   closeImg.addEventListener('click', function () {
     closePopup();
   });
   function closePopup() {
     window.pictures.bigPicture.classList.add('hidden');
     document.removeEventListener('keydown', window.utils.escCloseBigImg);
-  }
-  imgLinks.forEach(function (item) {
-    item.addEventListener('click', onPopupClose);
-  });
-  function onPopupClose() {
-    document.addEventListener('keydown', window.utils.escCloseBigImg);
-    window.pictures.bigPicture.classList.remove('hidden');
   }
   closeOverlayImg.addEventListener('click', closingImgOverlay);
   function closingImgOverlay() {

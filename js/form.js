@@ -73,7 +73,7 @@
     window.filter.closingImgOverlay();
     function onSuccessEscPress(evt) {
       if (evt.keyCode === ESC_KEYCODE) {
-        var successMessageEsc = document.querySelector('.success-message');
+        var successMessageEsc = node;
         successMessageEsc.remove();
         document.removeEventListener('keydown', onSuccessEscPress);
       }
@@ -87,7 +87,7 @@
     document.body.insertAdjacentElement('afterbegin', message);
     function onErrorEscPress(evt) {
       if (evt.keyCode === ESC_KEYCODE) {
-        var errorMessageEsc = document.querySelector('.error-message');
+        var errorMessageEsc = message;
         errorMessageEsc.remove();
         document.removeEventListener('keydown', onErrorEscPress);
       }
@@ -99,4 +99,7 @@
     window.backend.save(new FormData(formImg), onSuccessRequest, onErrorRequest);
   }
   formImg.addEventListener('submit', formSubmit);
+  window.form = {
+    onErrorRequest: onErrorRequest
+  };
 })();
