@@ -16,7 +16,7 @@
     showImg(photoes);
     function filterdPop() {
       photoes.sort(function (first, second) {
-        return first.likes - second.likes;
+        return second.likes - first.likes;
       });
       showImg(photoes);
       btnPopular.classList.add('img-filters__button--active');
@@ -27,7 +27,7 @@
     }
     function filterComment() {
       photoes.sort(function (first, second) {
-        return first.comments.length - second.comments.length;
+        return second.comments.length - first.comments.length;
       });
       showImg(photoes);
       btnDiscussed.classList.add('img-filters__button--active');
