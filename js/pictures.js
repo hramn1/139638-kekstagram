@@ -8,31 +8,56 @@
   var btnPopular = document.querySelector('#filter-popular');
   var btnNew = document.querySelector('#filter-new');
   var btnDiscussed = document.querySelector('#filter-discussed');
+  var btnForm = document.querySelector('.img-filters__form');
+  var btnSelect = btnForm.querySelectorAll('button');
   var photoes = [];
 
+  function removePicture() {
+    var pictureLink = document.querySelectorAll('.picture__link');
+    pictureLink.forEach(function (item) {
+      pictures.removeChild(item);
+    });
+  }
+  function removeBtnClass() {
+    btnSelect.forEach(function (item) {
+      if (item.classList.contains('img-filters__button--active')) {
+        item.classList.remove('img-filters__button--active');
+      }
+    });
+  }
   window.backend.load(dataLoadAds, window.form.onErrorRequest);
   function dataLoadAds(data) {
     photoes = data;
     showImg(photoes);
     function filterdPop() {
-      photoes.sort(function (first, second) {
+      window.debounce(showImg);
+      removePicture();
+      removeBtnClass();
+      var popPhotoes = photoes.slice();
+      popPhotoes.sort(function (first, second) {
         return second.likes - first.likes;
       });
-      showImg(photoes);
+      showImg(popPhotoes);
       btnPopular.classList.add('img-filters__button--active');
     }
     function filterOrigin() {
+      window.debounce(showImg);
+      removePicture();
+      removeBtnClass();
       showImg(photoes);
       btnNew.classList.add('img-filters__button--active');
     }
     function filterComment() {
-      photoes.sort(function (first, second) {
+      window.debounce(showImg);
+      removePicture();
+      removeBtnClass();
+      var photoComment = photoes.slice();
+      photoComment.sort(function (first, second) {
         return second.comments.length - first.comments.length;
       });
-      showImg(photoes);
+      showImg(photoComment);
       btnDiscussed.classList.add('img-filters__button--active');
     }
-
     var imgLinks = document.querySelectorAll('.picture__link');
     imgLinks.forEach(function (item) {
       item.addEventListener('click', onPopupClose);
