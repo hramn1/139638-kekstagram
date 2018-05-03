@@ -3,7 +3,7 @@
   var template = document.querySelector('#picture').content;
   var pictures = document.querySelector('.pictures');
   var bigPicture = document.querySelector('.big-picture');
-  var body = document.querySelector('body');
+  var body = document.body;
   var imgFilters = document.querySelector('.img-filters');
   var btnPopular = document.querySelector('#filter-popular');
   var btnNew = document.querySelector('#filter-new');
@@ -28,10 +28,10 @@
   function showBigImg() {
     var imgLinks = document.querySelectorAll('.picture__link');
     imgLinks.forEach(function (item) {
-      item.addEventListener('click', onPopupClose);
+      item.addEventListener('click', onPopupOpen);
     });
   }
-  function onPopupClose(evt) {
+  function onPopupOpen(evt) {
     var currentImg = evt.currentTarget.getAttribute('data-index');
     body.classList.add('modal-open');
     document.addEventListener('keydown', window.utils.escCloseBigImg);
@@ -59,9 +59,8 @@
       photoes = data;
       removePicture();
       removeBtnClass();
-      //showImg(photoes);
+      showImg(photoes);
       showBigImg();
-      window.debounce(showImg(photoes))
       btnNew.classList.add('img-filters__button--active');
     }
     function filterComment() {
@@ -71,17 +70,19 @@
       photoComment.sort(function (first, second) {
         return second.comments.length - first.comments.length;
       });
-      //showImg(photoComment);
-      window.debounce(showImg(photoComment))
+      showImg(photoComment);
       photoes = photoComment;
       showBigImg();
       btnDiscussed.classList.add('img-filters__button--active');
     }
 
     imgFilters.classList.remove('img-filters--inactive');
-    btnPopular.addEventListener('click', filterdPop);
-    btnNew.addEventListener('click', filterOrigin);
-    btnDiscussed.addEventListener('click', filterComment);
+    function btnDebounce() {
+      btnPopular.addEventListener('click', filterdPop);
+      btnNew.addEventListener('click', filterOrigin);
+      btnDiscussed.addEventListener('click', filterComment);
+    }
+    window.debounce(btnDebounce);
   }
   function generateRandomNumber(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min));
