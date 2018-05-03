@@ -59,8 +59,9 @@
       photoes = data;
       removePicture();
       removeBtnClass();
-      showImg(photoes);
+      //showImg(photoes);
       showBigImg();
+      window.debounce(showImg(photoes))
       btnNew.classList.add('img-filters__button--active');
     }
     function filterComment() {
@@ -70,7 +71,8 @@
       photoComment.sort(function (first, second) {
         return second.comments.length - first.comments.length;
       });
-      showImg(photoComment);
+      //showImg(photoComment);
+      window.debounce(showImg(photoComment))
       photoes = photoComment;
       showBigImg();
       btnDiscussed.classList.add('img-filters__button--active');
