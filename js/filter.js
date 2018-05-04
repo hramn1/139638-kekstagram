@@ -52,6 +52,7 @@
   });
   function closePopup() {
     window.pictures.bigPicture.classList.add('hidden');
+    window.pictures.body.classList.remove('modal-open');
     document.removeEventListener('keydown', window.utils.escCloseBigImg);
   }
   closeOverlayImg.addEventListener('click', closingImgOverlay);

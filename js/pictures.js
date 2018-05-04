@@ -3,28 +3,90 @@
   var template = document.querySelector('#picture').content;
   var pictures = document.querySelector('.pictures');
   var bigPicture = document.querySelector('.big-picture');
-  var photo = [];
+  var body = document.body;
+  var imgFilters = document.querySelector('.img-filters');
+  var btnPopular = document.querySelector('#filter-popular');
+  var btnNew = document.querySelector('#filter-new');
+  var btnDiscussed = document.querySelector('#filter-discussed');
+  var btnForm = document.querySelector('.img-filters__form');
+  var btnSelect = btnForm.querySelectorAll('button');
+  var photoes = [];
 
-  window.backend.load(dataLoadAds, window.form.onErrorRequest);
-  function dataLoadAds(data) {
-    photo = data;
-    showImg(photo);
-
+  function removePicture() {
+    var pictureLink = document.querySelectorAll('.picture__link');
+    pictureLink.forEach(function (item) {
+      pictures.removeChild(item);
+    });
+  }
+  function removeBtnClass() {
+    btnSelect.forEach(function (item) {
+      if (item.classList.contains('img-filters__button--active')) {
+        item.classList.remove('img-filters__button--active');
+      }
+    });
+  }
+  function showBigImg() {
     var imgLinks = document.querySelectorAll('.picture__link');
     imgLinks.forEach(function (item) {
-      item.addEventListener('click', onPopupClose);
+      item.addEventListener('click', onPopupOpen);
     });
-    function onPopupClose(evt) {
-      var currentImg = evt.currentTarget.getAttribute('data-index');
-      document.addEventListener('keydown', window.utils.escCloseBigImg);
-      window.pictures.bigPicture.classList.remove('hidden');
-      showBigPicture(photo, currentImg);
+  }
+  function onPopupOpen(evt) {
+    var currentImg = evt.currentTarget.getAttribute('data-index');
+    body.classList.add('modal-open');
+    document.addEventListener('keydown', window.utils.escCloseBigImg);
+    window.pictures.bigPicture.classList.remove('hidden');
+    showBigPicture(photoes, currentImg);
+  }
+  window.backend.load(dataLoadAds, window.form.onErrorRequest);
+  function dataLoadAds(data) {
+    photoes = data;
+    showImg(photoes);
+    showBigImg();
+    function filterdPop() {
+      removePicture();
+      removeBtnClass();
+      var popPhotoes = photoes.slice();
+      popPhotoes.sort(function (first, second) {
+        return second.likes - first.likes;
+      });
+      showImg(popPhotoes);
+      photoes = popPhotoes;
+      showBigImg();
+      btnPopular.classList.add('img-filters__button--active');
     }
+    function filterOrigin() {
+      photoes = data;
+      removePicture();
+      removeBtnClass();
+      showImg(photoes);
+      showBigImg();
+      btnNew.classList.add('img-filters__button--active');
+    }
+    function filterComment() {
+      removePicture();
+      removeBtnClass();
+      var photoComment = photoes.slice();
+      photoComment.sort(function (first, second) {
+        return second.comments.length - first.comments.length;
+      });
+      showImg(photoComment);
+      photoes = photoComment;
+      showBigImg();
+      btnDiscussed.classList.add('img-filters__button--active');
+    }
+
+    imgFilters.classList.remove('img-filters--inactive');
+    function btnDebounce() {
+      btnPopular.addEventListener('click', filterdPop);
+      btnNew.addEventListener('click', filterOrigin);
+      btnDiscussed.addEventListener('click', filterComment);
+    }
+    window.debounce(btnDebounce);
   }
   function generateRandomNumber(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min));
   }
-
   function showImg(photos) {
     var fragmentImg = document.createDocumentFragment();
     photos.forEach(function (item, i) {
@@ -36,7 +98,6 @@
       fragmentImg.appendChild(templatePhoto);
     });
     pictures.appendChild(fragmentImg);
-    return photos;
   }
   function showBigPicture(ad, indexImg) {
     var photos = ad[indexImg];
@@ -54,7 +115,9 @@
       imgBig.outerHTML + photos.comments[generateRandomNumber(0, maxComment)] + '</li>' + '<li class="social__comment social__comment--text">' +
       imgBig.outerHTML + photos.comments[generateRandomNumber(0, maxComment)] + '</li>';
   }
+
   window.pictures = {
     bigPicture: bigPicture,
+    body: body
   };
 })();
