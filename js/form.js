@@ -35,7 +35,7 @@
       hashtag.setCustomValidity('');
       hashtag.style = '';
     } else {
-      for (var i = 0; i < hashtagValue.length; i++) {
+      for (var i = 0; i < hashtagArray.length; i++) {
         hashtagArray[i] = hashtagArray[i].toLowerCase();
         if (hashtagArray[i].length > MAX_HASHTAGS_LENGTH) {
           hashtag.setCustomValidity('Хэш-тег не должен быть больше 20 символов');
