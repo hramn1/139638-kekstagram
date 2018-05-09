@@ -102,7 +102,7 @@
     pictures.appendChild(fragmentImg);
   }
   function showBigPicture(ad, indexImg) {
-    var COUNT_COMMENT = 5;
+    var countComment = 5;
     var photos = ad[indexImg];
     var maxComment = photos.comments.length;
     var imgBig = bigPicture.querySelector('.social__picture');
@@ -112,16 +112,16 @@
     bigPicture.querySelector('.big-picture__img img').src = photos.url;
     bigPicture.querySelector('.likes-count').textContent = photos.likes;
     function showCountComment() {
-      if (COUNT_COMMENT > maxComment) {
+      if (countComment > maxComment) {
         textCount.innerHTML = maxComment + ' из <span class="comments-count">' + maxComment + '</span> комментариев';
       } else {
-        textCount.innerHTML = COUNT_COMMENT + ' из <span class="comments-count">' + maxComment + '</span> комментариев';
+        textCount.innerHTML = countComment + ' из <span class="comments-count">' + maxComment + '</span> комментариев';
       }
     }
     bigPicture.querySelector('.social__caption').innerHTML = photos.comments[0];
     bigPicture.querySelector('.social__comments').innerHTML = '';
     loadMore.addEventListener('click', function () {
-      COUNT_COMMENT += 5;
+      countComment += 5;
       bigPicture.querySelector('.social__comments').innerHTML = '';
       commentLoad();
     });
@@ -129,7 +129,7 @@
     function commentLoad() {
       showCountComment();
       var commentFive = photos.comments.filter(function (number, i) {
-        return i < COUNT_COMMENT;
+        return i < countComment;
       });
       commentFive.forEach(function (item) {
         imgBig.src = 'img/avatar-' + generateRandomNumber(1, 6) + '.svg';

@@ -7,7 +7,7 @@
     OK: 200,
     REQUEST: 400,
     USER: 401,
-    NOTFOUND: 404
+    NOT_FOUND: 404
   };
 
   function load(onLoad, onError) {
@@ -27,7 +27,7 @@
         case Status.USER:
           error = 'Пользователь не авторизован';
           break;
-        case Status.NOTFOUND:
+        case Status.NOT_FOUND:
           error = 'Ничего не найдено';
           break;
         default:
