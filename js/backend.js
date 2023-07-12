@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var SERVER_URL = 'https://js.dump.academy/kekstagram';
+  var SERVER_URL = 'https://29.javascript.pages.academy/kekstagram';
   var SERVER_TIMEOUT = 5000;
   var Status = {
     OK: 200,
